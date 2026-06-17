@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>تحدي التيك توك الاحترافي المطور</title>
+    <title>تحدي تيك توك التفاعلي الاحترافي</title>
     <style>
+        /* إعدادات خطوط عامة وحماية الأداء */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -14,8 +15,8 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0f0f12;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #0c0c0e;
             color: #ffffff;
             height: 100vh;
             display: flex;
@@ -23,52 +24,51 @@
             overflow: hidden;
         }
 
-        /* الشريط العلوي الاحترافي الجديد */
-        .top-bar {
-            height: 7vh;
-            background: linear-gradient(to bottom, #1a1a24, #121218);
+        /* شريط التحكم العلوي النظيف والمميز */
+        .header {
+            background: linear-gradient(180deg, #18181c 0%, #111114 100%);
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 15px;
-            border-bottom: 1px solid #292936;
+            border-bottom: 1px solid #232329;
+            height: 8vh;
             z-index: 10;
         }
 
-        /* الأزرار العلوية المستديرة والحديثة */
-        .icon-btn {
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            width: 40px;
-            height: 40px;
+        /* الأزرار العلوية المستديرة والجمالية */
+        .circle-btn {
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 1.4rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
             cursor: pointer;
-            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.1s ease, background-color 0.2s;
         }
 
-        .icon-btn:active {
-            transform: scale(0.9);
-            background: rgba(255, 255, 255, 0.2);
-        }
+        .reset-btn { background-color: #ff3b30; }
+        .reset-btn:active { background-color: #d63025; transform: scale(0.92); }
 
-        .icon-btn.reset { background-color: rgba(255, 59, 48, 0.2); border-color: rgba(255, 59, 48, 0.4); }
+        .settings-main-btn { background-color: #3a3a42; }
+        .settings-main-btn:active { background-color: #2b2b31; transform: scale(0.92); }
 
-        /* حاوية شبكة التحدي */
+        /* شبكة المربعات المحسنة جمالياً */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 6px;
-            padding: 6px;
-            height: 93vh;
-            background-color: #0f0f12;
+            gap: 8px;
+            padding: 8px;
+            height: 92vh;
+            background-color: #0c0c0e;
         }
 
-        /* تصميم المربعات مع تدرجات لونية احترافية وضلال */
+        /* تصميم كرت المربع الملون والجميل */
         .country-card {
             display: flex;
             flex-direction: column;
@@ -77,34 +77,338 @@
             padding: 12px;
             position: relative;
             border-radius: 12px;
-            overflow: hidden;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.25), 0 4px 6px rgba(0,0,0,0.15);
-            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.15), 0 4px 8px rgba(0,0,0,0.25);
+            transition: transform 0.05s ease;
         }
 
         .country-card:active {
+            transform: scale(0.96);
             filter: brightness(1.15);
         }
 
-        /* الأرقام ثلاثية الأبعاد بوضوح ممتاز */
+        /* العداد الرقمي الاحترافي ثلاثي الأبعاد */
         .counter {
-            font-size: 4.2rem;
+            font-size: 4rem;
             font-weight: 900;
-            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 4px 8px rgba(0,0,0,0.5), 0 2px 2px rgba(0,0,0,0.4);
             flex-grow: 1;
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
-            letter-spacing: -2px;
         }
 
-        /* شريط المعلومات النظيف والمسطح تماماً بدون إطار أسود ثقيل */
-        .country-info-line {
-            width: 100%;
+        /* شريط معلومات البلد المحدث (مصفوف من اليمين إلى اليسار وبدون إطار أسود) */
+        .country-info-row {
             display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.18);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .gift-img {
+            height: 28px;
+            width: 28px;
+            object-fit: contain;
+        }
+
+        .flag-text {
+            font-size: 1.3rem;
+            line-height: 1;
+        }
+
+        /* النافذة المنبثقة للإعدادات العامة والمتطورة */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
             justify-content: center;
             align-items: center;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background: #1c1c1e;
+            padding: 20px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 450px;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid #2c2c2e;
+        }
+
+        .modal-content h3 { margin-bottom: 15px; border-bottom: 1px solid #2c2c2e; padding-bottom: 8px; }
+
+        label { display: block; margin-top: 10px; font-weight: bold; font-size: 0.9rem; color: #a1a1a6; }
+
+        input[type="text"], select, input[type="file"] {
+            width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 10px;
+            border-radius: 8px; border: 1px solid #3a3a3c; background: #2c2c2e; color: #fff;
+        }
+
+        /* قائمة إدارة وتعديل وحذف الدول السابقة */
+        .countries-manager {
+            background: #2c2c2e; padding: 10px; border-radius: 8px; max-height: 150px; overflow-y: auto; margin-top: 10px;
+        }
+
+        .manager-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 6px 0; border-bottom: 1px solid #3a3a3c;
+        }
+
+        .manager-item:last-child { border-bottom: none; }
+
+        .delete-btn { background: #ff453a; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; }
+
+        .modal-buttons { display: flex; justify-content: space-between; gap: 10px; margin-top: 15px; }
+
+        .modal-buttons button { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+        .save-btn { background: #30d158; color: white; }
+        .close-btn { background: #8e8e93; color: white; }
+
+        /* مصفوفة الألوان المشعة لتناسب البث المباشر وتجعل التصميم حيوياً */
+        .bg-1 { background: linear-gradient(135deg, #007aff 0%, #004099 100%); }
+        .bg-2 { background: linear-gradient(135deg, #34c759 0%, #1e7e34 100%); }
+        .bg-3 { background: linear-gradient(135deg, #ffcc00 0%, #b38f00 100%); color: #000; }
+        .bg-4 { background: linear-gradient(135deg, #af52de 0%, #6d308f 100%); }
+        .bg-5 { background: linear-gradient(135deg, #ff3b30 0%, #b3241c 100%); }
+        .bg-6 { background: linear-gradient(135deg, #5ac8fa 0%, #2482b3 100%); color: #000; }
+        .bg-7 { background: linear-gradient(135deg, #ff9500 0%, #b36600 100%); }
+        .bg-8 { background: linear-gradient(135deg, #5856d6 0%, #353399 100%); }
+        
+        /* لتفتيح نصوص الأعداد مع الألوان الفاتحة */
+        .bg-3 .country-info-row, .bg-6 .country-info-row { background: rgba(0,0,0,0.08); color: #000; }
+        .bg-3 .counter, .bg-6 .counter { text-shadow: 1px 1px 2px rgba(255,255,255,0.4); }
+    </style>
+</head>
+<body>
+
+    <!-- شريط علوي نظيف واحترافي خالٍ من الكتابة المزعجة -->
+    <div class="header">
+        <button class="circle-btn reset-btn" onclick="resetCounters()" title="إعادة البداية">🔄</button>
+        <button class="circle-btn settings-main-btn" onclick="openModal()" title="الإعدادات">⚙️</button>
+    </div>
+
+    <!-- حاوية المربعات الذكية -->
+    <div class="grid-container" id="gridContainer"></div>
+
+    <!-- نافذة الإعدادات العامة المتكاملة -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <h3>إعدادات لوحة التحكم</h3>
+            
+            <!-- خيار التحكم في عدد المربعات المعروضة في الشاشة -->
+            <label>عدد المربعات النشطة على الشاشة:</label>
+            <select id="visibleCountSelect" onchange="updateVisibleCount(this.value)">
+                <option value="2">2 مربعات</option>
+                <option value="4">4 مربعات</option>
+                <option value="6">6 مربعات</option>
+                <option value="8" selected>8 مربعات</option>
+            </select>
+
+            <div style="border-top: 1px solid #2c2c2e; margin-top: 15px; padding-top: 5px;">
+                <h4>➕ إضافة دولة جديدة للقائمة:</h4>
+                <label>اسم البلد:</label>
+                <input type="text" id="newCountryName" placeholder="مثال: الجزائر">
+                
+                <label>العلم (إيموجي):</label>
+                <input type="text" id="newCountryFlag" placeholder="مثال: 🇩🇿">
+                
+                <label>صورة الهدية الخاصة بالبلد:</label>
+                <input type="file" id="newGiftFile" accept="image/*">
+                
+                <button class="save-btn" style="width:100%; padding:8px; border-radius:6px; font-size:0.9rem; margin-top:5px;" onclick="addNewCountry()">إضافة للدليل</button>
+            </div>
+
+            <!-- دليل إدارة وتعديل وحذف الدول المضافة حالياً -->
+            <label>إدارة وحذف الدول المضافة حالياً:</label>
+            <div class="countries-manager" id="countriesManagerList"></div>
+            
+            <div class="modal-buttons">
+                <button class="save-btn" onclick="saveAndApplySettings()">حفظ الإعدادات الإجمالي</button>
+                <button class="close-btn" onclick="closeModal()">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // مصفوفة افتراضية متكاملة لتبدأ اللعبة بشكل منسق وجاهز
+        const initialCountries = [
+            { id: 1, name: "الجزائر", flag: "🇩🇿", count: 0, gift: "", bg: "bg-1" },
+            { id: 2, name: "السعودية", flag: "🇸🇦", count: 0, gift: "", bg: "bg-2" },
+            { id: 3, name: "المغرب", flag: "🇲🇦", count: 0, gift: "", bg: "bg-3" },
+            { id: 4, name: "مصر", flag: "🇪🇬", count: 0, gift: "", bg: "bg-4" },
+            { id: 5, name: "العراق", flag: "🇮🇶", count: 0, gift: "", bg: "bg-5" },
+            { id: 6, name: "سوريا", flag: "🇸🇾", count: 0, gift: "", bg: "bg-6" },
+            { id: 7, name: "تونس", flag: "🇹🇳", count: 0, gift: "", bg: "bg-7" },
+            { id: 8, name: "الإمارات", flag: "🇦🇪", count: 0, gift: "", bg: "bg-8" }
+        ];
+
+        let countries = JSON.parse(localStorage.getItem('tik_perfect_data')) || initialCountries;
+        let maxVisible = parseInt(localStorage.getItem('tik_max_visible')) || 8;
+
+        // دالة عرض وتوزيع المربعات ديناميكياً لتفادي أي لاغ والحفاظ على الأبعاد المريحة للعين
+        function renderGrid() {
+            const container = document.getElementById('gridContainer');
+            container.innerHTML = '';
+            
+            // تحديد تقسيم الشبكة ديناميكياً بناءً على عدد المربعات المختارة لضمان عدم حدوث تداخل
+            let rows = Math.ceil(maxVisible / 2);
+            container.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+
+            // عرض عدد الدول المطلوبة فقط والمحفوظة في اللائحة
+            const visibleSubset = countries.slice(0, maxVisible);
+
+            visibleSubset.forEach(country => {
+                const card = document.createElement('div');
+                card.className = `country-card ${country.bg || 'bg-1'}`;
+                card.setAttribute('onclick', `incrementCount(${country.id})`);
+
+                // العداد الرقمي المطور الكبير ثلاثي الأبعاد بالمنتصف
+                const counter = document.createElement('div');
+                counter.className = 'counter';
+                counter.id = `counter-${country.id}`;
+                counter.innerText = country.count;
+                card.appendChild(counter);
+
+                // شريط معلومات البلد النظيف (الهدية بجانب الاسم يليه العلم من اليمين إلى اليسار)
+                const infoRow = document.createElement('div');
+                infoRow.className = 'country-info-row';
+                
+                // إضافة صورة الهدية فقط في حال تم رفعها من الاستوديو محلياً
+                if (country.gift) {
+                    const img = document.createElement('img');
+                    img.src = country.gift;
+                    img.className = 'gift-img';
+                    infoRow.appendChild(img);
+                }
+                
+                // إضافة اسم الدولة وعلمها بجوار الهدية مباشرة في نفس السطر العائم
+                infoRow.innerHTML += `<span>${country.name}</span><span class="flag-text">${country.flag}</span>`;
+                card.appendChild(infoRow);
+
+                container.appendChild(card);
+            });
+            
+            document.getElementById('visibleCountSelect').value = maxVisible;
+        }
+
+        function incrementCount(id) {
+            const country = countries.find(c => c.id === id);
+            if (country) {
+                country.count++;
+                document.getElementById(`counter-${id}`).innerText = country.count;
+                saveToStorage();
+            }
+        }
+
+        function openModal() {
+            document.getElementById('settingsModal').style.display = 'flex';
+            renderManagerList();
+        }
+
+        function closeModal() {
+            document.getElementById('settingsModal').style.display = 'none';
+        }
+
+        function updateVisibleCount(val) {
+            maxVisible = parseInt(val);
+        }
+
+        // دالة إنشاء وإضافة دولة جديدة كلياً إلى نهاية القائمة مع إمكانية رفع صورة هديتها
+        function addNewCountry() {
+            const name = document.getElementById('newCountryName').value.trim();
+            const flag = document.getElementById('newCountryFlag').value.trim();
+            const fileInput = document.getElementById('newGiftFile');
+            
+            if (!name) { alert("الرجاء كتابة اسم الدولة أولاً"); return; }
+            
+            const nextId = countries.length > 0 ? Math.max(...countries.map(c => c.id)) + 1 : 1;
+            // إعطاء تدرج لوني عشوائي جميل ومبهج للبلدان المضافة حديثاً
+            const bgClass = `bg-${(nextId % 8) + 1}`; 
+
+            const newCountry = { id: nextId, name: name, flag: flag || "🏳️", count: 0, gift: "", bg: bgClass };
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newCountry.gift = e.target.result;
+                    countries.push(newCountry);
+                    clearAddFields();
+                    renderManagerList();
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                countries.push(newCountry);
+                clearAddFields();
+                renderManagerList();
+            }
+        }
+
+        function clearAddFields() {
+            document.getElementById('newCountryName').value = '';
+            document.getElementById('newCountryFlag').value = '';
+            document.getElementById('newGiftFile').value = '';
+        }
+
+        // بناء قائمة إدارة واستعراض وحذف الدول السابقة داخل لوحة التحكم العامة
+        function renderManagerList() {
+            const listContainer = document.getElementById('countriesManagerList');
+            listContainer.innerHTML = '';
+
+            countries.forEach((country, index) => {
+                const item = document.createElement('div');
+                item.className = 'manager-item';
+                item.innerHTML = `
+                    <span>${country.flag} ${country.name} (المربع رقم ${index + 1})</span>
+                    <button class="delete-btn" onclick="deleteCountry(${country.id})">حذف</button>
+                `;
+                listContainer.appendChild(item);
+            });
+        }
+
+        function deleteCountry(id) {
+            if (confirm("هل أنت متأكد من حذف هذه الدولة تماماً من اللائحة؟")) {
+                countries = countries.filter(c => c.id !== id);
+                renderManagerList();
+            }
+        }
+
+        // تفعيل زر حفظ الإعدادات لحفظ كل التعديلات وتحديث شاشة اللعبة فوراً
+        function saveAndApplySettings() {
+            saveToStorage();
+            renderGrid();
+            closeModal();
+        }
+
+        // زر إعادة البداية الاحترافي كرمز دائري مريح: تصفير الأرقام فقط دون مسح الدول أو صور الهدايا
+        function resetCounters() {
+            countries.forEach(c => c.count = 0);
+            saveToStorage();
+            renderGrid();
+        }
+
+        function saveToStorage() {
+            localStorage.setItem('tik_perfect_data', JSON.stringify(countries));
+            localStorage.setItem('tik_max_visible', maxVisible);
+        }
+
+        // إطلاق الواجهة وبناء شبكة المربعات فور فتح اللعبة
+        renderGrid();
+    </script>
+</body>
+</html>
             gap: 8px;
             font-size: 1.15rem;
             font-weight: bold;
