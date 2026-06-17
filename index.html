@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>تحدي تيك توك الاحترافي المطور</title>
+    <title>تحدي تيك توك الاحترافي الشامل</title>
     <style>
         * {
             box-sizing: border-box;
@@ -25,36 +25,36 @@
             position: relative;
         }
 
-        /* الأزرار العائمة الذكية فوق المربعات */
+        /* الأزرار العائمة الرئيسية فوق المربعات */
         .floating-btn {
             position: absolute;
             top: 12px;
-            z-index: 999;
+            z-index: 99;
             background: rgba(0, 0, 0, 0.6);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            width: 48px;
-            height: 48px;
-            font-size: 1.4rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 44px;
+            height: 44px;
+            font-size: 1.2rem;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             backdrop-filter: blur(8px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
             transition: transform 0.1s ease;
         }
         .floating-btn:active { transform: scale(0.9); }
         #settingsBtn { left: 12px; }
         #resetBtn { right: 12px; }
 
-        /* شبكة المربعات الديناميكية المرنة والمصلحة تماماً */
+        /* شبكة المربعات المتجاوبة والمصلحة تماماً ضد التداخل */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 6px;
-            padding: 6px;
+            gap: 4px;
+            padding: 4px;
             height: 100vh;
             width: 100vw;
             background-color: #000000;
@@ -63,63 +63,54 @@
         .country-card {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 15px 10px;
-            border-radius: 12px;
+            border-radius: 8px;
             position: relative;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+            padding: 8px;
             overflow: hidden;
             cursor: pointer;
         }
 
-        /* العداد الرقمي المصلح والمتناسب مع المساحة */
+        /* العداد الرقمي الموزع بشكل ممتاز */
         .counter {
-            font-size: 4.5rem;
+            font-size: 3.5rem;
             font-weight: 900;
             font-family: Arial, sans-serif;
-            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.85);
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.85);
+            line-height: 1;
+            margin-bottom: 4px;
         }
 
-        /* شريط الهوية المحسن أسفل المربع لحمايته من التداخل */
-        .country-identity-row {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 8px 6px;
-            border-radius: 8px;
+        /* معلومات الدولة بدون أي شريط خلفية كما اتفقنا */
+        .country-identity-free {
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            font-size: 1.6rem;
+            gap: 6px;
+            font-size: 1.1rem;
             font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+            width: 100%;
+            text-align: center;
         }
 
         .gift-img {
-            width: 45px;
-            height: 45px;
+            width: 32px;
+            height: 32px;
             object-fit: contain;
-            filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.5));
-        }
-
-        .flag-text {
-            font-size: 1.8rem;
+            filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.5));
         }
 
         .name-text {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 120px;
+            max-width: 90px;
         }
 
-        /* نافذة الإعدادات المتطورة */
+        /* نافذة الإعدادات المحسنة لتدعم التمرير السلس بدون تعليق */
         .modal {
             display: none;
             position: fixed;
@@ -128,7 +119,7 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            padding: 15px;
+            padding: 10px;
         }
 
         .modal-content {
@@ -136,58 +127,87 @@
             padding: 20px;
             border-radius: 16px;
             width: 100%;
-            max-width: 450px;
-            max-height: 90vh;
-            overflow-y: auto;
+            max-width: 420px;
+            max-height: 85vh;
+            overflow-y: scroll; /* تم تعديلها لضمان الصعود والنزول السلس */
+            -webkit-overflow-scrolling: touch; /* توافق ممتاز مع الهواتف */
             border: 1px solid #2d2d35;
-            color: #ffffff;
+            position: relative;
         }
 
-        .modal-content h3 { margin-bottom: 15px; border-bottom: 1px solid #2d2d35; padding-bottom: 8px; color: #00a8ff;}
-        label { display: block; margin: 10px 0 5px; font-weight: bold; font-size: 0.9rem;}
+        /* زر الإغلاق العائم داخل الإعدادات (رمز فقط) */
+        .close-icon-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #ff5252;
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        .modal-content h3 { margin-bottom: 15px; border-bottom: 1px solid #2d2d35; padding-bottom: 8px; color: #00a8ff; padding-left: 30px;}
+        label { display: block; margin: 10px 0 4px; font-weight: bold; font-size: 0.85rem;}
         
         input[type="text"], input[type="number"], input[type="file"] {
-            width: 100%; padding: 10px; margin-bottom: 8px; border-radius: 8px;
-            border: 1px solid #2d2d35; background: #0f0f11; color: #fff;
+            width: 100%; padding: 10px; margin-bottom: 6px; border-radius: 8px;
+            border: 1px solid #2d2d35; background: #0f0f11; color: #fff; font-size: 0.9rem;
         }
 
         .manage-list {
-            margin-top: 15px; background: #252529; padding: 10px; border-radius: 10px;
+            margin-top: 10px; background: #252529; padding: 8px; border-radius: 10px;
         }
         
-        /* تجميل أسطر التحكم بالدول داخل الإعدادات */
         .manage-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
+            padding: 8px 0;
             border-bottom: 1px solid #323239;
         }
         .manage-item-info {
             display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
         .manage-actions {
             display: flex;
-            gap: 5px;
+            gap: 4px;
         }
         
-        /* أزرار الإعدادات الجديدة */
         .action-btn {
-            border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.8rem; color: white;
+            border: none; padding: 6px 8px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.75rem; color: white;
         }
         .edit-btn { background: #ff9f43; }
         .toggle-btn { background: #54a0ff; }
-        .toggle-btn.disabled { background: #576574; opacity: 0.6; }
+        .toggle-btn.disabled { background: #576574; opacity: 0.5; }
         .delete-btn { background: #ff5252; }
 
-        .modal-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-        .save-btn { background: #1dd1a1; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem;}
-        .close-top-btn { background: #ee5253; color: white; padding: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 15px; width: 100%; text-align: center;}
+        .save-btn { background: #1dd1a1; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem; width: 100%; margin-top: 15px;}
 
-        /* ألوان المربعات */
+        /* نافذة التعديل الشامل الفرعية */
+        .sub-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 1100;
+            padding: 15px;
+        }
+
+        /* ألوان المربعات الافتراضية */
         .bg-1 { background-color: #2e86de; } .bg-2 { background-color: #10ac84; }
         .bg-3 { background-color: #feca57; } .bg-4 { background-color: #5f27cd; }
         .bg-5 { background-color: #ee5253; } .bg-6 { background-color: #341f97; }
@@ -197,42 +217,58 @@
 </head>
 <body>
 
-    <button class="floating-btn" id="settingsBtn" onclick="openModal()" title="الإعدادات">⚙️</button>
-    <button class="floating-btn" id="resetBtn" onclick="resetCounters()" title="تصفير العدادات">🔄</button>
+    <button class="floating-btn" id="settingsBtn" onclick="openModal()">⚙️</button>
+    <button class="floating-btn" id="resetBtn" onclick="resetCounters()">🔄</button>
 
     <div class="grid-container" id="gridContainer"></div>
 
     <div class="modal" id="settingsModal">
         <div class="modal-content">
-            <button class="close-top-btn" onclick="closeModal()">❌ إغلاق وتراجع</button>
+            <button class="close-icon-btn" onclick="closeModal()">❌</button>
             
             <h3>⚙️ إعدادات التحكم والتعديل</h3>
             
-            <label>عدد المربعات الأقصى للعرض بالشاشة:</label>
-            <input type="number" id="allowedCountInput" min="1" max="20" onchange="updateVisibleCount(this.value)">
+            <label>عدد المربعات للعرض بالشاشة:</label>
+            <input type="number" id="allowedCountInput" min="1" max="24" onchange="updateVisibleCount(this.value)">
 
-            <hr style="border-color:#2d2d35; margin:15px 0;">
+            <hr style="border-color:#2d2d35; margin:12px 0;">
 
-            <h4 style="color: #1dd1a1;">➕ إضافة دولة جديدة للمصفوفة:</h4>
+            <h4 style="color: #1dd1a1; font-size:0.95rem;">➕ إضافة دولة جديدة للمصفوفة:</h4>
             <label>اسم الدولة:</label>
             <input type="text" id="newCountryName" placeholder="مثال: قطر">
             <label>علم الدولة (إيموجي):</label>
             <input type="text" id="newCountryFlag" placeholder="مثال: 🇶🇦">
-            <label>صورة الهدية من جهازك:</label>
+            <label>صورة الهدية:</label>
             <input type="file" id="newCountryGift" accept="image/*">
-            <button class="save-btn" style="width:100%; padding:8px; border-radius:6px; margin-top:5px; margin-bottom:15px; background:#54a0ff;" onclick="addNewCountryItem()">إضافة إلى القائمة</button>
+            <button class="save-btn" style="padding:8px; border-radius:6px; margin-top:5px; margin-bottom:12px; background:#54a0ff; font-size:0.85rem;" onclick="addNewCountryItem()">إضافة إلى القائمة</button>
 
-            <label>📊 إدارة وحجم ظهور وتعديل الدول المسجلة:</label>
+            <label>📊 إدارة وتعديل الدول المسجلة:</label>
             <div class="manage-list" id="manageListContainer"></div>
             
-            <div class="modal-buttons">
-                <button class="save-btn" onclick="saveAndApplySettings()">💾 حفظ الإعدادات وتطبيق التعديلات</button>
-            </div>
+            <button class="save-btn" onclick="saveAndApplySettings()">💾 حفظ وتطبيق كافة التعديلات</button>
+        </div>
+    </div>
+
+    <div class="sub-modal" id="editSubModal">
+        <div class="modal-content" style="max-width: 380px;">
+            <button class="close-icon-btn" onclick="closeSubModal()">❌</button>
+            <h3 style="color: #ff9f43;">✏️ تعديل شامل للدولة</h3>
+            
+            <input type="hidden" id="editCountryId">
+            <label>اسم الدولة الحالي/الجديد:</label>
+            <input type="text" id="editCountryNameInput">
+            
+            <label>علم الدولة (إيموجي):</label>
+            <input type="text" id="editCountryFlagInput">
+            
+            <label>تحديث صورة الهدية (اتركها فارغة للاحتفاظ بالقديمة):</label>
+            <input type="file" id="editCountryGiftInput" accept="image/*">
+            
+            <button class="save-btn" style="background: #ff9f43;" onclick="applyFullCountryEdit()">تحديث وحفظ التغييرات</button>
         </div>
     </div>
 
     <script>
-        // مصفوفة الدول الافتراضية مع إضافة خاصية visible للتحكم بالظهور والتعطيل
         const defaultCountries = [
             { id: 1, name: "السعودية", flag: "🇸🇦", count: 0, gift: "", bg: "bg-1", visible: true },
             { id: 2, name: "الجزائر", flag: "🇩🇿", count: 0, gift: "", bg: "bg-2", visible: true },
@@ -247,29 +283,35 @@
         let countries = JSON.parse(localStorage.getItem('tik_challenge_countries')) || defaultCountries;
         let visibleCount = parseInt(localStorage.getItem('tik_challenge_limit')) || 8;
         let temporaryGiftBase64 = "";
+        let temporaryEditGiftBase64 = "";
 
-        // التعامل مع رفع ملف الهدية
+        // مستمعات رفع الملفات لأسلوب الإضافة والتعديل
         document.getElementById('newCountryGift').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(event) {
-                    temporaryGiftBase64 = event.target.result;
-                };
+                reader.onload = function(ev) { temporaryGiftBase64 = ev.target.result; };
                 reader.readAsDataURL(file);
             }
         });
 
-        // رندر وعرض الشبكة الرئيسية (تظهر فقط الدول التي حالتها visible: true)
+        document.getElementById('editCountryGiftInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(ev) { temporaryEditGiftBase64 = ev.target.result; };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // رندر وتحديث شبكة العرض
         function renderGrid() {
             const container = document.getElementById('gridContainer');
             container.innerHTML = '';
             
-            // فلترة الدول النشطة فقط والمفعلة
             const activeCountries = countries.filter(c => c.visible !== false);
             const displayList = activeCountries.slice(0, visibleCount);
             
-            // حساب وتوزيع الأسطر ديناميكياً بناءً على عدد العناصر لتجنب أي تداخل
             const totalItems = displayList.length;
             const rowsCount = Math.ceil(totalItems / 2) || 1;
             container.style.gridTemplateRows = `repeat(${rowsCount}, 1fr)`;
@@ -285,8 +327,9 @@
                 counter.innerText = country.count;
                 card.appendChild(counter);
 
+                // الهوية الحرة بدون أي أشرطة أو خلفيات داكنة
                 const identityRow = document.createElement('div');
-                identityRow.className = 'country-identity-row';
+                identityRow.className = 'country-identity-free';
 
                 if (country.gift) {
                     const img = document.createElement('img');
@@ -301,7 +344,6 @@
                 identityRow.appendChild(nameSpan);
 
                 const flagSpan = document.createElement('span');
-                flagSpan.className = 'flag-text';
                 flagSpan.innerText = country.flag;
                 identityRow.appendChild(flagSpan);
 
@@ -330,7 +372,6 @@
             document.getElementById('settingsModal').style.display = 'none';
         }
 
-        // بناء قائمة التحكم في الإعدادات مع أزرار (تعديل - تعطيل/تفعيل - حذف)
         function buildManageList() {
             const container = document.getElementById('manageListContainer');
             container.innerHTML = '';
@@ -339,29 +380,24 @@
                 const item = document.createElement('div');
                 item.className = 'manage-item';
                 
-                // حاوية معلومات الدولة
                 const infoDiv = document.createElement('div');
                 infoDiv.className = 'manage-item-info';
                 infoDiv.style.opacity = country.visible !== false ? '1' : '0.4';
-                infoDiv.innerHTML = `<span>${country.flag} ${country.name} (${country.count}) ${country.visible !== false ? '' : '[معطل]'}</span>`;
+                infoDiv.innerHTML = `<span>${country.flag} ${country.name} (${country.count}) ${country.visible !== false ? '' : '[مخفي]'}</span>`;
                 
-                // حاوية الأزرار الثلاثة الذكية
                 const actionsDiv = document.createElement('div');
                 actionsDiv.className = 'manage-actions';
 
-                // 1. زر التعديل السريع
                 const editBtn = document.createElement('button');
                 editBtn.className = 'action-btn edit-btn';
                 editBtn.innerText = '✏️ تعديل';
-                editBtn.onclick = () => editCountryPrompt(country.id);
+                editBtn.onclick = () => openEditSubModal(country.id);
 
-                // 2. زر التعطيل / التفعيل الموقت دون حذف
                 const toggleBtn = document.createElement('button');
                 toggleBtn.className = `action-btn toggle-btn ${country.visible !== false ? '' : 'disabled'}`;
                 toggleBtn.innerText = country.visible !== false ? '👁️ إخفاء' : '✔️ إظهار';
                 toggleBtn.onclick = () => toggleVisibility(country.id);
 
-                // 3. زر الحذف النهائي
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'action-btn delete-btn';
                 deleteBtn.innerText = '🗑️ حذف';
@@ -377,25 +413,44 @@
             });
         }
 
-        // دالة التعديل السريع للمعلومات
-        function editCountryPrompt(id) {
+        // فتح نافذة التعديل الشامل والكامل للدولة
+        function openEditSubModal(id) {
             const country = countries.find(c => c.id === id);
             if (country) {
-                const newName = prompt("تعديل اسم الدولة:", country.name);
-                if (newName === null) return; // إلغاء التعديل
-                
-                const newFlag = prompt("تعديل علم الدولة (إيموجي):", country.flag);
-                if (newFlag === null) return;
-
-                if (newName.trim() !== "") {
-                    country.name = newName.trim();
-                    country.flag = newFlag.trim() || "🏳️";
-                    buildManageList();
-                }
+                document.getElementById('editCountryId').value = country.id;
+                document.getElementById('editCountryNameInput').value = country.name;
+                document.getElementById('editCountryFlagInput').value = country.flag;
+                document.getElementById('editCountryGiftInput').value = "";
+                temporaryEditGiftBase64 = ""; // تصفير مؤقت لحين رفع ملف جديد
+                document.getElementById('editSubModal').style.display = 'flex';
             }
         }
 
-        // دالة التفعيل والتعطيل السريع للظهور
+        function closeSubModal() {
+            document.getElementById('editSubModal').style.display = 'none';
+        }
+
+        // تطبيق حفظ التعديل الكامل (الاسم + العلم + الصورة)
+        function applyFullCountryEdit() {
+            const id = parseInt(document.getElementById('editCountryId').value);
+            const name = document.getElementById('editCountryNameInput').value.trim();
+            const flag = document.getElementById('editCountryFlagInput').value.trim();
+
+            if (!name) { alert("اسم الدولة مطلوب!"); return; }
+
+            const country = countries.find(c => c.id === id);
+            if (country) {
+                country.name = name;
+                country.flag = flag || "🏳️";
+                // إذا تم رفع صورة هدية جديدة نحدثها، وإلا تبقى القديمة كما هي
+                if (temporaryEditGiftBase64) {
+                    country.gift = temporaryEditGiftBase64;
+                }
+                buildManageList();
+                closeSubModal();
+            }
+        }
+
         function toggleVisibility(id) {
             const country = countries.find(c => c.id === id);
             if (country) {
@@ -452,7 +507,7 @@
         }
 
         function resetCounters() {
-            if (confirm("هل أنت متأكد من تصفير كل العدادات لبدء تحدي جديد؟")) {
+            if (confirm("هل أنت متأكد من تصفير العدادات بالكامل؟")) {
                 countries.forEach(c => c.count = 0);
                 saveToStorage();
                 renderGrid();
@@ -467,3 +522,4 @@
     </script>
 </body>
 </html>
+
