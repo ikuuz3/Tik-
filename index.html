@@ -3,403 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>تحدي تيك توك الاحترافي المطور</title>
+    <title>تحدي التيك توك الاحترافي</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0f0f11;
-            color: #ffffff;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        /* شريط التحكم العلوي النقي */
-        .header {
-            background-color: #16161a;
-            padding: 0 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 7vh;
-            border-bottom: 1px solid #232329;
-            z-index: 10;
-        }
-
-        .action-icon-btn {
-            background: #232329;
-            color: white;
-            border: none;
-            width: 45px;
-            height: 45px;
-            font-size: 1.4rem;
-            font-weight: bold;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.1s ease, background 0.2s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        }
-
-        .action-icon-btn:active {
-            transform: scale(0.9);
-            background: #ff3b30;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+        body { font-family: sans-serif; background-color: #0f0f11; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
         
-        #settingsBtn:active {
-            background: #00a8ff;
-        }
+        /* الأزرار العائمة */
+        .float-btn { position: absolute; top: 10px; z-index: 20; background: rgba(0,0,0,0.5); border: none; color: white; width: 50px; height: 50px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        #settingsBtn { left: 10px; }
+        #resetBtn { right: 10px; }
 
-        /* شبكة المربعات الديناميكية المرنة */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 6px;
-            padding: 6px;
-            height: 93vh;
-            background-color: #0f0f11;
-        }
-
-        .country-card {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            position: relative;
-            border-radius: 12px;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.15), 0 4px 8px rgba(0,0,0,0.3);
-            transition: filter 0.1s;
-        }
-
-        .country-card:active {
-            filter: brightness(1.2);
-        }
-
-        /* العداد الرقمي الكبير المجسم */
-        .counter {
-            font-size: 4.2rem;
-            font-weight: 900;
-            font-family: Arial, Helvetica, sans-serif;
-            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.8), -1px -1px 0px rgba(0,0,0,0.5);
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            width: 100%;
-            justify-content: center;
-        }
-
-        /* هوية البلد النظيفة أسفل المربع (من اليمين لليسار) */
-        .country-identity-row {
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 1.15rem;
-            font-weight: bold;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
-        }
-
-        .gift-img {
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
-        }
-
-        .flag-text {
-            font-size: 1.25rem;
-        }
-
-        /* لوحة الإعدادات المنبثقة */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            padding: 15px;
-        }
-
-        .modal-content {
-            background: #1c1c1f;
-            padding: 20px;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 420px;
-            max-height: 85vh;
-            overflow-y: auto;
-            border: 1px solid #2d2d35;
-        }
-
-        .modal-content h3 { margin-bottom: 15px; border-bottom: 1px solid #2d2d35; padding-bottom: 8px; color: #00a8ff;}
-        label { display: block; margin: 10px 0 5px; font-weight: bold; font-size: 0.9rem;}
+        /* الشبكة التي تملأ الشاشة */
+        .grid-container { display: grid; width: 100vw; height: 100vh; gap: 2px; padding: 2px; }
+        .country-card { display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 10px; position: relative; }
         
-        input[type="text"], input[type="number"], select, input[type="file"] {
-            width: 100%; padding: 10px; margin-bottom: 8px; border-radius: 8px;
-            border: 1px solid #2d2d35; background: #0f0f11; color: #fff;
-        }
+        .counter { font-size: 5rem; font-weight: 900; color: white; text-shadow: 3px 3px 6px rgba(0,0,0,0.5); flex-grow: 1; display: flex; align-items: center; }
+        .info-row { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.8rem; font-weight: bold; color: white; background: rgba(0,0,0,0.3); padding: 5px 15px; border-radius: 8px; }
+        .gift-img { width: 50px; height: 50px; object-fit: contain; }
 
-        .manage-list {
-            margin-top: 15px; background: #252529; padding: 10px; border-radius: 10px;
-        }
-        .manage-item {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 8px 0; border-bottom: 1px solid #323239;
-        }
-        .delete-btn { background: #ff3b30; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;}
-
-        .modal-buttons { display: flex; gap: 10px; margin-top: 20px; }
-        .modal-buttons button { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .save-btn { background: #4cd137; color: white; }
-        .close-btn { background: #485460; color: white; }
-
-        /* الألوان المشعة للبث المباشر */
-        .bg-1 { background-color: #00a8ff; } .bg-2 { background-color: #4cd137; }
-        .bg-3 { background-color: #fbc531; } .bg-4 { background-color: #9c88ff; }
-        .bg-5 { background-color: #e84118; } .bg-6 { background-color: #487eb0; }
-        .bg-7 { background-color: #00cec9; } .bg-8 { background-color: #6c5ce7; }
-        .bg-9 { background-color: #ed4c67; } .bg-10 { background-color: #12cbd6; }
-        .bg-11 { background-color: #ff7f50; } .bg-12 { background-color: #2ed573; }
+        /* نافذة الإعدادات */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 100; padding: 20px; overflow-y: auto; }
+        .modal-content { background: #1c1c1f; padding: 20px; border-radius: 16px; color: white; }
+        input, button { width: 100%; padding: 12px; margin: 5px 0; border-radius: 8px; border: none; }
+        .save-btn { background: #4cd137; color: white; font-weight: bold; }
+        .close-btn { background: #ff3b30; color: white; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <button class="action-icon-btn" onclick="resetCounters()" title="إعادة تصفير العدادات">🔄</button>
-        <button class="action-icon-btn" id="settingsBtn" onclick="openModal()" title="الإعدادات">⚙️</button>
-    </div>
+    <button class="float-btn" id="settingsBtn" onclick="openModal()">⚙️</button>
+    <button class="float-btn" id="resetBtn" onclick="resetCounters()">🔄</button>
 
     <div class="grid-container" id="gridContainer"></div>
 
     <div class="modal" id="settingsModal">
         <div class="modal-content">
-            <h3>⚙️ إعدادات التحدي والتحكم</h3>
-            
-            <label>عدد المربعات المراد عرضها بالشاشة:</label>
-            <input type="number" id="allowedCountInput" min="1" max="12" onchange="updateVisibleCount(this.value)">
-
-            <hr style="border-color:#2d2d35; margin:15px 0;">
-
-            <h4 style="color: #4cd137;">➕ إضافة دولة جديدة للمصفوفة:</h4>
-            <label>اسم الدولة:</label>
-            <input type="text" id="newCountryName" placeholder="مثال: قطر">
-            <label>علم الدولة (إيموجي):</label>
-            <input type="text" id="newCountryFlag" placeholder="مثال: 🇶🇦">
-            <label>صورة الهدية من جهازك:</label>
-            <input type="file" id="newCountryGift" accept="image/*">
-            <button class="save-btn" style="width:100%; padding:8px; border-radius:6px; margin-top:5px; font-weight:bold;" onclick="addNewCountryItem()">إضافة إلى القائمة</button>
-
-            <label>📊 إدارة وحذف الدول المسجلة:</label>
-            <div class="manage-list" id="manageListContainer"></div>
-            
-            <div class="modal-buttons">
-                <button class="save-btn" onclick="saveAndApplySettings()">💾 حفظ الإعدادات وإغلاق</button>
-            </div>
+            <h3>⚙️ الإعدادات</h3>
+            <label>عدد المربعات:</label>
+            <input type="number" id="countInput" value="8">
+            <button class="save-btn" onclick="saveSettings()">💾 حفظ الإعدادات</button>
+            <button class="close-btn" onclick="closeModal()">❌ إغلاق</button>
         </div>
     </div>
 
     <script>
-        // مصفوفة الدول الأساسية الافتراضية
-        const defaultCountries = [
-            { id: 1, name: "الجزائر", flag: "🇩🇿", count: 0, gift: "", bg: "bg-1" },
-            { id: 2, name: "السعودية", flag: "🇸🇦", count: 0, gift: "", bg: "bg-2" },
-            { id: 3, name: "المغرب", flag: "🇲🇦", count: 0, gift: "", bg: "bg-3" },
-            { id: 4, name: "مصر", flag: "🇪🇬", count: 0, gift: "", bg: "bg-4" },
-            { id: 5, name: "العراق", flag: "🇮🇶", count: 0, gift: "", bg: "bg-5" },
-            { id: 6, name: "سوريا", flag: "🇸🇾", count: 0, gift: "", bg: "bg-6" },
-            { id: 7, name: "تونس", flag: "🇹🇳", count: 0, gift: "", bg: "bg-7" },
-            { id: 8, name: "الإمارات", flag: "🇦🇪", count: 0, gift: "", bg: "bg-8" }
+        let countries = JSON.parse(localStorage.getItem('countries')) || [
+            {name:"الجزائر", flag:"🇩🇿", count:0, bg:"#00a8ff"}, {name:"السعودية", flag:"🇸🇦", count:0, bg:"#4cd137"},
+            {name:"المغرب", flag:"🇲🇦", count:0, bg:"#fbc531"}, {name:"مصر", flag:"🇪🇬", count:0, bg:"#9c88ff"},
+            {name:"العراق", flag:"🇮🇶", count:0, bg:"#e84118"}, {name:"سوريا", flag:"🇸🇾", count:0, bg:"#487eb0"},
+            {name:"تونس", flag:"🇹🇳", count:0, bg:"#00cec9"}, {name:"الإمارات", flag:"🇦🇪", count:0, bg:"#6c5ce7"}
         ];
 
-        let countries = JSON.parse(localStorage.getItem('tik_challenge_countries')) || defaultCountries;
-        let visibleCount = parseInt(localStorage.getItem('tik_challenge_limit')) || 8;
-        let temporaryGiftBase64 = "";
-
-        // مستمع لرفع ملفات الصور وتحويلها فورياً لـ Base64 خفيف وحفظه بالهاتف
-        document.getElementById('newCountryGift').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    temporaryGiftBase64 = event.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // دالة بناء وعرض شبكة المربعات بدقة متناهية وسرعة ريشة
-        function renderGrid() {
+        function render() {
             const container = document.getElementById('gridContainer');
+            const limit = parseInt(localStorage.getItem('limit')) || 8;
             container.innerHTML = '';
+            container.style.gridTemplateColumns = `repeat(2, 1fr)`;
             
-            // أخذ العدد المحدد فقط من الدول للعرض بالشاشة
-            const displayList = countries.slice(0, visibleCount);
-
-            // ضبط عدد الأسطر ديناميكياً ليناسب المساحة دون تعليق
-            const rowsCount = Math.ceil(displayList.length / 2);
-            container.style.gridTemplateRows = `repeat(${rowsCount}, 1fr)`;
-
-            displayList.forEach(country => {
+            countries.slice(0, limit).forEach((c, i) => {
                 const card = document.createElement('div');
-                card.className = `country-card ${country.bg || 'bg-1'}`;
-                card.setAttribute('onclick', `incrementCount(${country.id})`);
-
-                // الرقم الكبير في المنتصف مع تأثير ظلال مجسمة للمشاهدين
-                const counter = document.createElement('div');
-                counter.className = 'counter';
-                counter.id = `counter-${country.id}`;
-                counter.innerText = country.count;
-                card.appendChild(counter);
-
-                // سطر الهوية السفلي النظيف (هدية -> اسم -> علم) من اليمين لليسار وبدون إطار أسود
-                const identityRow = document.createElement('div');
-                identityRow.className = 'country-identity-row';
-
-                // 1. صورة الهدية (إذا وجدت)
-                if (country.gift) {
-                    const img = document.createElement('img');
-                    img.src = country.gift;
-                    img.className = 'gift-img';
-                    identityRow.appendChild(img);
-                }
-
-                // 2. اسم الدولة
-                const nameSpan = document.createElement('span');
-                nameSpan.innerText = country.name;
-                identityRow.appendChild(nameSpan);
-
-                // 3. علم الدولة
-                const flagSpan = document.createElement('span');
-                flagSpan.className = 'flag-text';
-                flagSpan.innerText = country.flag;
-                identityRow.appendChild(flagSpan);
-
-                card.appendChild(identityRow);
+                card.className = 'country-card';
+                card.style.backgroundColor = c.bg;
+                card.onclick = () => { c.count++; render(); localStorage.setItem('countries', JSON.stringify(countries)); };
+                card.innerHTML = `<div class="counter">${c.count}</div><div class="info-row"><span>${c.name}</span><span>${c.flag}</span></div>`;
                 container.appendChild(card);
             });
         }
 
-        // نقرة واحدة سريعة تزيد العداد وتحفظ فوراً بالذاكرة الآمنة
-        function incrementCount(id) {
-            const country = countries.find(c => c.id === id);
-            if (country) {
-                country.count++;
-                const el = document.getElementById(`counter-${id}`);
-                if (el) el.innerText = country.count;
-                saveToStorage();
-            }
-        }
+        function openModal() { document.getElementById('settingsModal').style.display = 'block'; }
+        function closeModal() { document.getElementById('settingsModal').style.display = 'none'; }
+        function saveSettings() { localStorage.setItem('limit', document.getElementById('countInput').value); render(); closeModal(); }
+        function resetCounters() { if(confirm("تصفير؟")) { countries.forEach(c => c.count = 0); render(); } }
 
-        // فتح نافذة الإعدادات الشاملة وبناء قائمة الإدارة
-        function openModal() {
-            document.getElementById('allowedCountInput').value = visibleCount;
-            buildManageList();
-            document.getElementById('settingsModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('settingsModal').style.display = 'none';
-        }
-
-        // بناء قائمة التعديل والحذف السريعة داخل الإعدادات
-        function buildManageList() {
-            const container = document.getElementById('manageListContainer');
-            container.innerHTML = '';
-            countries.forEach((country, index) => {
-                const item = document.createElement('div');
-                item.className = 'manage-item';
-                item.innerHTML = `
-                    <span>${index + 1}. ${country.flag} ${country.name} (${country.count})</span>
-                    <button class="delete-btn" onclick="deleteCountryItem(${country.id})">حذف</button>
-                `;
-                container.appendChild(item);
-            });
-        }
-
-        // إضافة دولة جديدة مخصصة للمصفوفة
-        function addNewCountryItem() {
-            const name = document.getElementById('newCountryName').value.trim();
-            const flag = document.getElementById('newCountryFlag').value.trim();
-            
-            if(!name) { alert("الرجاء إدخال اسم الدولة!"); return; }
-
-            const nextId = countries.length > 0 ? Math.max(...countries.map(c => c.id)) + 1 : 1;
-            const randomBgNumber = Math.floor(Math.random() * 12) + 1;
-
-            const newCountry = {
-                id: nextId,
-                name: name,
-                flag: flag || "🏳️",
-                count: 0,
-                gift: temporaryGiftBase64,
-                bg: `bg-${randomBgNumber}`
-            };
-
-            countries.push(newCountry);
-            
-            // تصفير حقول الإدخال للإضافة التالية
-            document.getElementById('newCountryName').value = "";
-            document.getElementById('newCountryFlag').value = "";
-            document.getElementById('newCountryGift').value = "";
-            temporaryGiftBase64 = "";
-
-            buildManageList();
-        }
-
-        // حذف دولة من المصفوفة بالكامل
-        function deleteCountryItem(id) {
-            countries = countries.filter(c => c.id !== id);
-            buildManageList();
-        }
-
-        // تغيير عدد المربعات المعروضة
-        function updateVisibleCount(val) {
-            let num = parseInt(val);
-            if (num < 1) num = 1;
-            if (num > 12) num = 12;
-            visibleCount = num;
-        }
-
-        // زر الحفظ النهائي للإعدادات والتطبيق الفوري
-        function saveAndApplySettings() {
-            localStorage.setItem('tik_challenge_limit', visibleCount);
-            saveToStorage();
-            renderGrid();
-            closeModal();
-        }
-
-        // زر إعادة البداية التعبيري السريع (تصفير العدادات فقط)
-        function resetCounters() {
-            if (confirm("هل أنت متأكد من تصفير كل العدادات لبدء تحدي جديد؟")) {
-                countries.forEach(c => c.count = 0);
-                saveToStorage();
-                renderGrid();
-            }
-        }
-
-        // حفظ البيانات بثبات في ذاكرة المتصفح/الهاتف المحلية
-        function saveToStorage() {
-            localStorage.setItem('tik_challenge_countries', JSON.stringify(countries));
-        }
-
-        // التشغيل التلقائي الآمن فور فتح التطبيق
-        renderGrid();
+        render();
     </script>
 </body>
 </html>
-
